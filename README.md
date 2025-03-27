@@ -2,7 +2,7 @@
 Advanced Geolocation Techniques and Geopolitical Integration for a Resilient Internet Infrastructure
 his script reads UK facilities, extracts location and metadata, and creates an interactive HTML map.
 
-# create_measurements.py Creates the initial traceromeasurements between 32 anchors in the UK
+# create_measurements.py Creates the initial trace route measurements between 32 anchors in the UK
 # and adds the measurment info to a file in the measurments folder
 # for use in a application to read that info and make use of it.
 
