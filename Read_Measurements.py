@@ -1,3 +1,7 @@
+# read_measurements.py reads in the uk_measurments file created in step 1
+# and acceesss the RIPE ATLAS measurments to create a spreadsheet of distances vs RTT times results/results.xlsx
+# also saves all this infomation to results/targets.json file
+# 
 import pprint
 import os
 import time
