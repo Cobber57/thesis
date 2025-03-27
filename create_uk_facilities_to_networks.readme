@@ -1,0 +1,56 @@
+# UK Facilities and Networks Mapper (PeeringDB)
+
+This script interacts with the PeeringDB API using the `peeringdb` Python library to extract, enrich, and store network facility data focused on the United Kingdom. It aims to create a geolocated mapping of all networks that peer at UK facilities, including fallback geolocation strategies for facilities without coordinates.
+
+## Main Functionality
+
+- **Data Sources**:
+  - PeeringDB `Network`, `Facility`, and `NetworkFacility` resources.
+
+- **Logic**:
+  1. Filters only facilities within the UK (`country = 'GB'`).
+  2. For each UK facility, retrieves metadata including name, address, and coordinates.
+  3. For facilities without lat/lon data, attempts geolocation using Nominatim.
+  4. If geolocation fails, falls back to a hardcoded list of known coordinates.
+  5. Builds a nested dictionary structure that maps facility IDs to:
+     - Basic facility metadata (location, address, org ID, etc.).
+     - A list of associated network IDs and ASNs that peer at the facility.
+
+- **Output**:
+  - Writes the result to a JSON file (`uk_facilities_all3.json`) for future processing or visualisation.
+
+## Output Structure
+
+The output dictionary `uk_facilitys` has the structure:
+
+```json
+{
+  "<facility_id>": {
+    "org_id": <int>,
+    "name": <str>,
+    "address1": <str>,
+    "city": <str>,
+    "latitude": <float>,
+    "longitude": <float>,
+    "networks": [<net_id>, <asn>, ...]
+  }
+}
+```
+
+## Notes
+
+- Before running, ensure that the local PeeringDB cache is up-to-date using:
+
+```bash
+peeringdb sync
+```
+
+- Beware of API rate limits when fetching many records — caching strategies or batching may be required for large-scale runs.
+
+- Ensure that the script is run from a working directory with permission to write the output JSON files.
+
+## Requirements
+
+- `peeringdb`
+- `geopy`
+- `json`
