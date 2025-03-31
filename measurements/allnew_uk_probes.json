@@ -1,0 +1,152 @@
+{
+  "55": {
+    "address": "81.187.145.168",
+    "coordinates": [1.1095, 51.3695],
+    "measurement": 49203641
+  },
+  "2481": {
+    "address": "31.126.26.187",
+    "coordinates": [-7.2685, 55.0275],
+    "measurement": 49241701
+  },
+  "2519": {
+    "address": "109.149.134.18",
+    "coordinates": [-3.1725, 55.9515],
+    "measurement": 49241702
+  },
+  "858": {
+    "address": "95.128.15.132",
+    "coordinates": [-0.0105, 51.5015],
+    "measurement": 49305978
+  },
+  "991": {
+    "address": "5.64.214.155",
+    "coordinates": [-0.2485, 51.2375],
+    "measurement": 49305979
+  },
+  "2550": {
+    "address": "77.98.144.95",
+    "coordinates": [-0.6385, 51.5285],
+    "measurement": 49305986
+  },
+  "3093": {
+    "address": "77.98.144.95",
+    "coordinates": [-0.6385, 51.5285],
+    "measurement": 49305986
+  },
+  "2589": {
+    "address": "79.98.32.154",
+    "coordinates": [0.0015, 51.5115],
+    "measurement": 49305982
+  },
+  "2908": {
+    "address": "82.22.94.38",
+    "coordinates": [-0.5325, 51.6515],
+    "measurement": 49305983
+  },
+  "2958": {
+    "address": "217.35.41.1",
+    "coordinates": [-5.0505, 50.2615],
+    "measurement": 49305985
+  },
+  "3102": {
+    "address": "90.255.245.59",
+    "coordinates": [-2.9125, 53.3885],
+    "measurement": 49305990
+  },
+  "3326": {
+    "address": "81.187.2.170",
+    "coordinates": [-2.7715, 56.3305],
+    "measurement": 49305991
+  },
+  "3505": {
+    "address": "91.244.239.196",
+    "coordinates": [-0.6225, 51.1795],
+    "measurement": 49305992
+  },
+  "3514": {
+    "address": "91.244.245.247",
+    "coordinates": [-0.0025, 51.4895],
+    "measurement": 49305993
+  },
+  "3560": {
+    "address": "213.205.209.62",
+    "coordinates": [-0.2995, 51.0775],
+    "measurement": 49305994
+  },
+  "3570": {
+    "address": "83.151.206.91",
+    "coordinates": [-1.3895, 51.7275],
+    "measurement": 49305995
+  },
+  "3590": {
+    "address": "212.82.90.20",
+    "coordinates": [-0.7285, 51.6375],
+    "measurement": 49305996
+  },
+  "3687": {
+    "address": "37.152.213.184",
+    "coordinates": [-3.0085, 51.6705],
+    "measurement": 49305997
+  },
+  "3916": {
+    "address": "148.252.133.96",
+    "coordinates": [-5.0225, 51.9705],
+    "measurement": 49305999
+  },
+  "3999": {
+    "address": "140.228.73.127",
+    "coordinates": [-0.1485, 51.4815],
+    "measurement": 49306001
+  },
+  "4040": {
+    "address": "31.125.211.191",
+    "coordinates": [-2.4905, 53.2875],
+    "measurement": 49306002
+  },
+  "4145": {
+    "address": "31.185.33.163",
+    "coordinates": [-2.0205, 50.7695],
+    "measurement": 49306003
+  },
+  "4378": {
+    "address": "80.82.245.13",
+    "coordinates": [-0.0095, 51.5015],
+    "measurement": 49306004
+  },
+  "4422": {
+    "address": "80.235.226.218",
+    "coordinates": [-1.1315, 52.9585],
+    "measurement": 49306006
+  },
+  "4843": {
+    "address": "86.162.72.51",
+    "coordinates": [-1.0905, 52.9585],
+    "measurement": 49306008
+  },
+  "6087": {
+    "address": "5.57.16.65",
+    "coordinates": [-0.6185, 51.5205],
+    "measurement": 49306009
+  },
+  "6382": {
+    "address": "90.223.193.3",
+    "coordinates": [-0.5985, 51.5085],
+    "measurement": 49306010
+  },
+  "6405": {
+    "address": "37.10.44.14",
+    "coordinates": [-0.6325, 51.5195],
+    "measurement": 49306012
+  },
+  "6423": {
+    "address": "176.74.17.75",
+    "coordinates": [-2.2915, 53.4685],
+    "measurement": 49306013
+  },
+  "6446": {
+    "address": "185.40.232.202",
+    "coordinates": [-0.1005, 51.5205],
+    "measurement": 49306014
+  }
+}
