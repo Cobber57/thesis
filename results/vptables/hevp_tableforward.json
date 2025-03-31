@@ -1,0 +1,56 @@
+{
+  "193.57.144.254": {
+    "lat": 51.5215,
+    "lon": -0.0705,
+    "code": 2,
+    "rdns": "ebr1.ix1.infernocomms.net.",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "216.66.89.105": {
+    "lat": 0,
+    "lon": 0,
+    "code": 5,
+    "rdns": "e0-3.core1.lon6.he.net.",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "184.104.198.169": {
+    "lat": 0,
+    "lon": 0,
+    "code": 5,
+    "rdns": "port-channel14.core3.lon2.he.net.",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "195.66.224.253": {
+    "lat": 51.524335,
+    "lon": -0.63804,
+    "code": 2,
+    "rdns": "",
+    "facility": [["2262"]],
+    "port": "edge5-eq4 xe-3/0/3",
+    "speed": "10G"
+  },
+  "5.57.16.65": {
+    "lat": 51.5205,
+    "lon": -0.6185,
+    "code": 2,
+    "rdns": "PROBE6087",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "stats": {
+    "1": 0,
+    "2": 3,
+    "3": 0,
+    "4": 0,
+    "5": 2,
+    "total_ips": 5,
+    "total_hops": 5
+  }
+}

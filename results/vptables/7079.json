@@ -1,0 +1,65 @@
+{
+  "5.57.16.70": {
+    "lat": 51.5205,
+    "lon": -0.6185,
+    "code": 2,
+    "rdns": "",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "195.50.90.173": {
+    "lat": 51.511827346720686,
+    "lon": -0.0031222276903634526,
+    "code": 2,
+    "rdns": "7-2-3.ear1.London1.Level3.net. telehouse north-LONDON-CAR3-CUSTOMER-SERIAL-LINKS1",
+    "facility": ["34"],
+    "port": "",
+    "speed": ""
+  },
+  "4.69.166.2": {
+    "lat": 51.51171,
+    "lon": -0.00294,
+    "code": 2,
+    "rdns": "ae1.3115.edge7.London1.level3.net.",
+    "facility": [["34"]],
+    "port": "",
+    "speed": ""
+  },
+  "4.68.110.42": {
+    "lat": 51.51171,
+    "lon": -0.00294,
+    "code": 2,
+    "rdns": "PCCW-level3-London1.Level3.net.",
+    "facility": [["34"]],
+    "port": "",
+    "speed": ""
+  },
+  "63.223.14.70": {
+    "lat": 0,
+    "lon": 0,
+    "code": 5,
+    "rdns": "Bundle-Ether43.br01.ldn12.pccwbtn.net.",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "63.222.217.4": {
+    "lat": 51.5015,
+    "lon": -0.0095,
+    "code": 2,
+    "rdns": "PROBE7079",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "stats": {
+    "1": 0,
+    "2": 5,
+    "3": 0,
+    "4": 0,
+    "5": 1,
+    "total_ips": 6,
+    "total_hops": 6
+  }
+}

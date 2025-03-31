@@ -1,0 +1,65 @@
+{
+  "5.57.16.70": {
+    "lat": 51.5205,
+    "lon": -0.6185,
+    "code": 2,
+    "rdns": "",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "195.50.90.173": {
+    "lat": 51.511827346720686,
+    "lon": -0.0031222276903634526,
+    "code": 2,
+    "rdns": "7-2-3.ear1.London1.Level3.net. telehouse north-LONDON-CAR3-CUSTOMER-SERIAL-LINKS1",
+    "facility": "34",
+    "port": "",
+    "speed": ""
+  },
+  "4.69.161.34": {
+    "lat": 0,
+    "lon": 0,
+    "code": 5,
+    "rdns": "ae1.3112.edge6.London2.level3.net.",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "212.187.167.190": {
+    "lat": 0,
+    "lon": 0,
+    "code": 5,
+    "rdns": "GAMMA-TELEC.edge6.London2.Level3.net.",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "164.39.242.16": {
+    "lat": 0,
+    "lon": 0,
+    "code": 5,
+    "rdns": "",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "164.39.242.17": {
+    "lat": 53.4685,
+    "lon": -2.3085,
+    "code": 2,
+    "rdns": "PROBE6892",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "stats": {
+    "1": 0,
+    "2": 3,
+    "3": 0,
+    "4": 0,
+    "5": 3,
+    "total_ips": 6,
+    "total_hops": 6
+  }
+}

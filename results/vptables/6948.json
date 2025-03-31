@@ -1,0 +1,47 @@
+{
+  "5.57.16.70": {
+    "lat": 51.5205,
+    "lon": -0.6185,
+    "code": 2,
+    "rdns": "",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "184.104.198.170": {
+    "lat": 51.498842,
+    "lon": -0.014327,
+    "code": 2,
+    "rdns": "port-channel1.core1.lon6.he.net.",
+    "facility": [["45"]],
+    "port": "",
+    "speed": ""
+  },
+  "216.66.89.106": {
+    "lat": 51.498842,
+    "lon": -0.014327,
+    "code": 2,
+    "rdns": "inferno-communications.e0-3.switch1.lon6.he.net.",
+    "facility": [["45"]],
+    "port": "",
+    "speed": ""
+  },
+  "193.57.144.24": {
+    "lat": 51.5215,
+    "lon": -0.0705,
+    "code": 2,
+    "rdns": "PROBE6948",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "stats": {
+    "1": 0,
+    "2": 4,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "total_ips": 4,
+    "total_hops": 5
+  }
+}

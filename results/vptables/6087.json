@@ -1,0 +1,56 @@
+{
+  "80.82.242.38": {
+    "lat": 53.3795,
+    "lon": -2.2585,
+    "code": 2,
+    "rdns": "38-242-82-80.in-addr.pblin.net.",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "80.82.243.241": {
+    "lat": 53.461177,
+    "lon": -2.326691,
+    "code": 2,
+    "rdns": "gi0-2-0.man-core-01.ip.pblin.net.",
+    "facility": [["601", "1054"]],
+    "port": "",
+    "speed": ""
+  },
+  "80.82.243.153": {
+    "lat": 51.51171,
+    "lon": -0.00294,
+    "code": 2,
+    "rdns": "te0-3-0.lon-core-02.ip.pblin.net.",
+    "facility": [["34", "39", "45", "835"]],
+    "port": "",
+    "speed": ""
+  },
+  "195.66.236.253": {
+    "lat": 51.523805,
+    "lon": -0.635545,
+    "code": 2,
+    "rdns": "",
+    "facility": [["399"]],
+    "port": "edge1-eq4-lon2 xe23",
+    "speed": "10G"
+  },
+  "5.57.16.65": {
+    "lat": 51.5205,
+    "lon": -0.6185,
+    "code": 2,
+    "rdns": "PROBE6087",
+    "facility": [],
+    "port": "",
+    "speed": ""
+  },
+  "stats": {
+    "1": 0,
+    "2": 5,
+    "3": 0,
+    "4": 0,
+    "5": 0,
+    "total_ips": 5,
+    "total_hops": 6
+  }
+}
