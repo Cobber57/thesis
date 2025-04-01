@@ -207,7 +207,7 @@ class Html_Create:
         ip = open(self.filename, 'a')
         
 
-        # create ipaddress points on map 
+        # create ipaddress points on map in green circles
         stringa = "      var target_c_"
         stringb = " = L.circle(["
         string1 = "      // show the area of operation of the AS on the map\n      var polygon = L.polygon([\n"
@@ -336,7 +336,7 @@ class Html_Create:
         ip.write ('      // Probe '+probe_id+ ' Hop '+h+'\n')
         ip.write(stringa + name +stringb+str(hop['hop_latitude'])+ ','+str(hop['hop_longitude'])+string22+str(300)+string2a+'\n')  
         # Create hop Popup
-        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "rtt : " + str(rtt)+string8a+"\n")   
+        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "stt : " + str(rtt/2)+string8a+"\n")   
         # add to Featuregroup
         ip.write("      circle_" + name + ".addTo(" + group_name +");\n")
 
@@ -408,6 +408,7 @@ class Html_Create:
         stringa = 'var rectangle_'
         stringb = ' = L.rectangle(bounds_'
         stringc = ', {color: "black", fillColor: 0, fillOpacity: 0, weight: 4 });\n'
+        stringd = ', {color: "blue", fillColor: 0, fillOpacity: 0, weight: 4 });\n'
         string3 = '        ]).addTo(map);\n'
         string4 = 'rectangle_'
         string4a= '.bindPopup("<b>IXP '
@@ -423,10 +424,17 @@ class Html_Create:
         spacer2 = "],\n"
 
         first_facility = used_facilities[0]
-        first_facility_lat = str(facilitys_uk[first_facility]['latitude'])
-        first_facility_lon = str(facilitys_uk[first_facility]['longitude'] )
-
-        
+        if first_facility != '0':
+            first_facility_lat = str(facilitys_uk[first_facility]['latitude'])
+            first_facility_lon = str(facilitys_uk[first_facility]['longitude'] )
+        else:
+            first_facility_lat = str(facilitys_uk[used_facilities[2]]['latitude'])
+            first_facility_lon = str(facilitys_uk[used_facilities[2]]['longitude'])
+            print(used_facilities)
+            used_facilities.pop(0)
+            used_facilities.pop(0)
+            print(used_facilities)
+             
         print('IXP is ', ixp_str, self.ixp_dict.keys())
         if ixp_str not in self.ixp_dict.keys():
             fac_list = []
@@ -459,10 +467,14 @@ class Html_Create:
                     
                     # print(fac_str, ixp_info['fac_set'][0][0])
                     
-                    rec_lat1 = str(facilitys_uk[fac_str]['latitude'] + .001)
-                    rec_lat2 = str(facilitys_uk[fac_str]['latitude'] - .001)
-                    rec_lon1 = str(facilitys_uk[fac_str]['longitude'] - .001)
-                    rec_lon2 = str(facilitys_uk[fac_str]['longitude'] + .001)
+                    #rec_lat1 = str(facilitys_uk[fac_str]['latitude'] + .001)
+                    #rec_lat2 = str(facilitys_uk[fac_str]['latitude'] - .001)
+                    #rec_lon1 = str(facilitys_uk[fac_str]['longitude'] - .001)
+                    #rec_lon2 = str(facilitys_uk[fac_str]['longitude'] + .001)
+                    rec_lat1 = str(facilitys_uk[fac_str]['latitude'] )
+                    rec_lat2 = str(facilitys_uk[fac_str]['latitude'] )
+                    rec_lon1 = str(facilitys_uk[fac_str]['longitude'] )
+                    rec_lon2 = str(facilitys_uk[fac_str]['longitude'] )
                     # print ( 'FIRST FAC =',first_facility, first_facility_lat,first_facility_lon)
                     #create the IXP Rectangle at the first facilties location
                     ip.write ('      // IXP '+str(ixp_id)+' Facility '+fac_str+'\n')
@@ -544,7 +556,7 @@ class Html_Create:
         self.target_address = 'Not Applicable'
 
        
-        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'_2.html'
+        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'.html'
 
         self.ixp_dict = {}
 

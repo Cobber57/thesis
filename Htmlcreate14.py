@@ -207,7 +207,7 @@ class Html_Create:
         ip = open(self.filename, 'a')
         
 
-        # create ipaddress points on map 
+        # create ipaddress points on map in green circles
         stringa = "      var target_c_"
         stringb = " = L.circle(["
         string1 = "      // show the area of operation of the AS on the map\n      var polygon = L.polygon([\n"
@@ -215,7 +215,7 @@ class Html_Create:
         string21 = "], { color: 'red', fillColor: '#8000000', fillOpacity: 0.5, radius: "
         string22 = "], { color: 'blue', fillColor: '#8000000', fillOpacity: 0.5, radius: "
         string23 = "], { color: 'red', fillColor: '#00', interactive: false, fillOpacity: 0.0, radius: "
-        string24 = "], { color: 'red', fillColor: '#00', interactive: false, fillOpacity: 0, radius: "
+        string24 = "], { color: 'red, fillColor: '#00', interactive: false, fillOpacity: 0, radius: "
         string25 = "], { color: 'yellow', fillColor: '#8000000', fillOpacity: 0.5, radius: "
         string2a = " }).addTo(map);"
 
@@ -336,7 +336,7 @@ class Html_Create:
         ip.write ('      // Probe '+probe_id+ ' Hop '+h+'\n')
         ip.write(stringa + name +stringb+str(hop['hop_latitude'])+ ','+str(hop['hop_longitude'])+string22+str(300)+string2a+'\n')  
         # Create hop Popup
-        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "rtt : " + str(rtt)+string8a+"\n")   
+        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "stt : " + str(rtt/2)+string8a+"\n")   
         # add to Featuregroup
         ip.write("      circle_" + name + ".addTo(" + group_name +");\n")
 
@@ -544,7 +544,7 @@ class Html_Create:
         self.target_address = 'Not Applicable'
 
        
-        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'_2.html'
+        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'.html'
 
         self.ixp_dict = {}
 

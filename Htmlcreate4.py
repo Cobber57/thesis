@@ -188,71 +188,7 @@ class Html_Create:
         ip.write("      else {\n")
         ip.write("        map.addLayer("+group_name+"); };} )\n")
         '''
-    def create_target_area(self, probe_id,facility, facility_dict, rtt,target):
 
-        
-       
-        lon             = facility_dict[facility]['longitude']
-        lat             = facility_dict[facility]['latitude']
-        #hops            = probe_dict[probe_id]['Hops']
-        # Avg Speed of a packet in a fibre optic medium
-        packet_speed = 0.66 * 300000 # METRES PER MILLISECCOND
-        radius          = (rtt/2) * packet_speed 
-
-
-
-        group_name = "group" + str(probe_id)
-        target_group_name = "group" + str(target)
-        
-        ip = open(self.filename, 'a')
-        
-
-        # create ipaddress points on map 
-        stringa = "      var target_c_"
-        stringb = " = L.circle(["
-        string1 = "      // show the area of operation of the AS on the map\n      var polygon = L.polygon([\n"
-        string2 = "], { color: 'red', fillColor: '#00', interactive: false, fillOpacity: 0.0, radius: "
-        string21 = "], { color: 'red', fillColor: '#8000000', fillOpacity: 0.5, radius: "
-        string22 = "], { color: 'blue', fillColor: '#8000000', fillOpacity: 0.5, radius: "
-        string23 = "], { color: 'red', fillColor: '#00', interactive: false, fillOpacity: 0.0, radius: "
-        string24 = "], { color: 'red', fillColor: '#00', interactive: false, fillOpacity: 0, radius: "
-        string25 = "], { color: 'yellow', fillColor: '#8000000', fillOpacity: 0.5, radius: "
-        string2a = " }).addTo(map);"
-
-
-        string3 = "        ]).addTo(map);\n"
-        string4 = '      polygon.bindPopup("<b>AS'
-        string5 = '</b><br />'
-        string6 = '<br />Area of Operation");\n'
-        string6a = "});\n"
-        string7 = '      circle.bindPopup("<b>Probe '
-        string7a ='      circle'
-        string7b ='.bindPopup("<b>Probe '
-        string7c ='.bindPopup("<b>Target '
-        string8 = ' ").openPopup();\n\n'
-        string8a = ' ");\n\n'
-        spacer1 = "        ["
-        spacer2 = "],\n"
-        
-     
-            
-            
-        ip.write ('      // Target Circle '+str(probe_id)+'\n')
-
-        # Create Yellow target circle 
-        ip.write(stringa + str(probe_id)+stringb+str(lat)+ ','+str(lon)+string24+str(radius)+string2a+'\n')  
-        
-                
-               #ip.write("     "+group_name+".bindPopup('"+group_name+"');\n")
-        '''
-        ip.write("      circle"+str(probe_id)+".on('click', function(e) {if(map.hasLayer("+group_name+")){\n")
-        ip.write("        map.removeLayer("+group_name+"); ")
-        ip.write("        map.removeLayer("+target_name+"); }\n")
-        ip.write("      else {\n")
-        ip.write("        map.addLayer("+group_name+"); };} )\n")
-        '''
-        # add to Featuregroup
-        #ip.write("      target_c_" + name + ".addTo(" + group_name +");\n")
 
 
     def create_target(self, probe_id, probe_dict):
@@ -336,7 +272,7 @@ class Html_Create:
         ip.write ('      // Probe '+probe_id+ ' Hop '+h+'\n')
         ip.write(stringa + name +stringb+str(hop['hop_latitude'])+ ','+str(hop['hop_longitude'])+string22+str(300)+string2a+'\n')  
         # Create hop Popup
-        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "rtt : " + str(rtt)+string8a+"\n")   
+        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "stt : " + str(rtt/2)+string8a+"\n")   
         # add to Featuregroup
         ip.write("      circle_" + name + ".addTo(" + group_name +");\n")
 
@@ -350,7 +286,7 @@ class Html_Create:
         string4 = "      var pline_"
         string5 = " = L.polyline(latlng_"
         string6 = ", {color: '"
-        string6a = "', weight:4});\n"
+        string6a = "'});\n"
 
         string7a ='        pline_'
         string7b ='.bindPopup("<b>Hop '
@@ -407,7 +343,7 @@ class Html_Create:
         string6 = 'var bounds_' # = [[ # 37.767202, -122.456709], [37.766560, -122.455316]]; 
         stringa = 'var rectangle_'
         stringb = ' = L.rectangle(bounds_'
-        stringc = ', {color: "black", fillColor: 0, fillOpacity: 0, weight: 4 });\n'
+        stringc = ', {color: "black", fillColor: 0, fillOpacity: 0, weight: 1 });\n'
         string3 = '        ]).addTo(map);\n'
         string4 = 'rectangle_'
         string4a= '.bindPopup("<b>IXP '
@@ -417,7 +353,7 @@ class Html_Create:
         string7 = 'var polylinePoints = [['
         string8 = 'var polyline_' 
         string8a = 'polyline_'   
-        string9 = ' = L.polyline(polylinePoints, {color: "black", weight: 2});\n'
+        string9 = ' = L.polyline(polylinePoints, {color: "black", weight: 4});\n'
 
         spacer1 = "        ["
         spacer2 = "],\n"
@@ -544,7 +480,7 @@ class Html_Create:
         self.target_address = 'Not Applicable'
 
        
-        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'_2.html'
+        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'.html'
 
         self.ixp_dict = {}
 

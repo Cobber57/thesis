@@ -207,7 +207,7 @@ class Html_Create:
         ip = open(self.filename, 'a')
         
 
-        # create ipaddress points on map 
+        # create ipaddress points on map in green circles
         stringa = "      var target_c_"
         stringb = " = L.circle(["
         string1 = "      // show the area of operation of the AS on the map\n      var polygon = L.polygon([\n"
@@ -336,7 +336,7 @@ class Html_Create:
         ip.write ('      // Probe '+probe_id+ ' Hop '+h+'\n')
         ip.write(stringa + name +stringb+str(hop['hop_latitude'])+ ','+str(hop['hop_longitude'])+string22+str(300)+string2a+'\n')  
         # Create hop Popup
-        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "rtt : " + str(rtt)+string8a+"\n")   
+        ip.write(string7a +name+string7b+ name + string5 + 'AS '+str(hop['asn'])+"<br />" + str(hop['from']) + "<br />" + "Address: "+hop['address']+ "<br />" + "stt : " + str(rtt/2)+string8a+"\n")   
         # add to Featuregroup
         ip.write("      circle_" + name + ".addTo(" + group_name +");\n")
 
@@ -522,7 +522,143 @@ class Html_Create:
             self.ixp_dict[ixp_id] = fac_list
             print( 'FAC LIST for', ixp_id, 'is', self.ixp_dict[ixp_id])
 
+    def create_facility(self, used_facilities, facilitys_uk,probe_id):
 
+        # TODO: Where facilities have the same coordiantes, only the first/last one is showing on the map because they are 
+        # writing over each other. Need to add the info for each faciity to the popup.
+
+        ixp_str = str(used_facilities[0])
+        
+        
+        group_name = "group" + ixp_str
+        # TODO: probably not a good idea to import peeringdb here but not sure how to get around this
+        import peeringdb
+        pdb = peeringdb.PeeringDB()
+
+        # ip = open('peeringdb_test_results/ixp_test.html', 'w')
+        ip = open(self.filename, 'a')
+
+
+        # show all the facilities where the IXP peers on the map
+        # NOTE: actually have changed this to just show the entry and exit facility which fixes the TODO above
+
+        string6 = 'var bounds_' # = [[ # 37.767202, -122.456709], [37.766560, -122.455316]]; 
+        stringa = 'var rectangle_'
+        stringb = ' = L.rectangle(bounds_'
+        stringc = ', {color: "black", fillColor: 0, fillOpacity: 0, weight: 4 });\n'
+        string3 = '        ]).addTo(map);\n'
+        string4 = 'rectangle_'
+        string4a= '.bindPopup("<b>IXP '
+        
+        string5 = '</b><br /> ");\n'
+
+        string7 = 'var polylinePoints = [['
+        string8 = 'var polyline_' 
+        string8a = 'polyline_'   
+        string9 = ' = L.polyline(polylinePoints, {color: "black", weight: 2});\n'
+
+        spacer1 = "        ["
+        spacer2 = "],\n"
+
+        first_facility = used_facilities[0]
+        first_facility_lat = str(facilitys_uk[first_facility]['latitude'])
+        first_facility_lon = str(facilitys_uk[first_facility]['longitude'] )
+
+        
+        #print('IXP is ', ixp_str, self.ixp_dict.keys())
+        
+        fac_list = []
+        
+        # Create the IXP featuregroup
+        ip.write('// IXP Featuregroup'+ixp_str+'\n')
+        ip.write('var group'+ixp_str+' = L.featureGroup();\n')
+        #print('IT wasnt IN')
+        #input('wait')
+        
+        for fac in used_facilities[0::2]:
+            print('FACILITY IS',fac)
+            fac_str = str(fac)
+            
+            
+            # if this fac hasnt already been added to the html script
+            if fac not in fac_list:
+
+                fac_list.append(fac)   
+                print('FAC List is ', fac_list, ixp_id, fac)
+                f = pdb.fetch(peeringdb.resource.Facility, fac)
+                fac_organisation = f[0]['org']['name']
+                fac_address = f[0]['org']['address1']
+                fac_city = f[0]['org']['city']
+                fac_country = f[0]['org']['country']
+                fac_website = f[0]['org']['website']
+                
+                
+
+                
+                # print(fac_str, ixp_info['fac_set'][0][0])
+                
+                rec_lat1 = str(facilitys_uk[fac_str]['latitude'] + .001)
+                rec_lat2 = str(facilitys_uk[fac_str]['latitude'] - .001)
+                rec_lon1 = str(facilitys_uk[fac_str]['longitude'] - .001)
+                rec_lon2 = str(facilitys_uk[fac_str]['longitude'] + .001)
+                # print ( 'FIRST FAC =',first_facility, first_facility_lat,first_facility_lon)
+                #create the IXP Rectangle at the first facilties location
+                ip.write ('      // IXP '+str(ixp_id)+' Facility '+fac_str+'\n')
+                ip.write(string6 +fac_str+' = [['+rec_lat1 +',' +rec_lon1 +'],[' +rec_lat2+',' +rec_lon2 +']];\n')
+                ip.write(stringa + fac_str+stringb+fac_str+stringc)  
+                ip.write(string4 
+                + fac_str
+                + string4a
+                + str(ixp_id)
+                + "<br />"
+                + ixp_info['name'][0]
+                + "<br />"
+                + ixp_info['ipv4_prefix']
+                +"<br />"
+                + ixp_info['ipv6_prefix']
+                +"<br />"
+                +' Facility '+fac_str
+                +"<br />"
+                + facilitys_uk[fac_str]['name']
+                +"<br />"
+                + facilitys_uk[fac_str]['address1']
+                +"<br />"
+                +' Administration by:- <br />'
+                + fac_organisation+'<br />'
+                +fac_address +'<br />'
+                +fac_city +'<br />'
+                +fac_country+'<br />'
+                +fac_website
+                +string5)
+
+                # add rectangle IXP to Featuregroup
+                ip.write(string4 + fac_str+".addTo("+group_name+");\n")
+
+                # Dont bother drawing a line from the first facility
+                # if fac_str != str(ixp_info['fac_set'][0][0]):
+                # Actually we need this line to appear in the html script or there will be a problem
+                
+                ip.write('      // Draw Line_'+str(fac_str)+'\n')
+                ip.write(string7 
+                    +first_facility_lat
+                    +', '
+                    +first_facility_lon
+                    +'],['
+                    +str(facilitys_uk[fac_str]['latitude'])
+                    +', '
+                    +str(facilitys_uk[fac_str]['longitude'])
+                    +']];\n')
+                ip.write(string8+fac_str+string9)
+                # add line to featuregroup
+                ip.write(string8a + fac_str+".addTo("+group_name+");\n")
+            else:
+                # Just add rectangle IXP to Featuregroup
+                ip.write(string4 + fac_str+".addTo("+group_name+");\n")
+                # and  just add line to featuregroup
+                ip.write(string8a + fac_str+".addTo("+group_name+");\n")
+        
+            
+            print( 'FAC LIST for', fac_str, 'is', fac_str)
     def close_file(self):
         ip = open(self.filename, 'a')
         # Complete Script and write to file
@@ -544,7 +680,7 @@ class Html_Create:
         self.target_address = 'Not Applicable'
 
        
-        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'_2.html'
+        self.filename = 'web/targets/target_tr_'+str(self.target_ip)+'.html'
 
         self.ixp_dict = {}
 
