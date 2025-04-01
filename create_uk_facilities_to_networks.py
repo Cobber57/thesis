@@ -1,99 +1,218 @@
-# Reads all networks from PeeringDB and associates them with UK-based
-# Internet exchange facilities, enriching each facility with geographic data.
-# This mapping is later used to create a geolocated view of ASNs in the UK.
+# Reads in each network. checks the facilities if it peers at any GB facilities,
+# and creates a list of networks organised by facility
+# however this causes many read requests and eventually peeringdb stops providing results.
+# Have sent an email to support@peeringdb.com
 
 import peeringdb
-from peeringdb import PeeringDB, resource
+
+from pprint import pprint
+
+import django
+from peeringdb import PeeringDB, resource, config
 from geopy.geocoders import Nominatim
 import ipaddress
 import json
-
-# Initialize the PeeringDB API and geolocation service
-pdb = PeeringDB()
 geolocator = Nominatim(user_agent="aswindow")
 
-# Set country filter to Great Britain
+pdb = peeringdb.PeeringDB()
+
+# Area under analysis
 area = 'GB'
 
-# Download all PeeringDB records of interest
 networks = pdb.fetch_all(resource.Network)
-facilities = pdb.fetch_all(resource.Facility)
+
 netfac = pdb.fetch_all(resource.NetworkFacility)
-
-# Create data structures to hold facility info and mappings
-uk_facilitys = {}        # Store GB facilities with full details
-uk_asns = []             # List of ASNs peering in GB
-fac_list = []            # List of GB facility IDs
-nets = {}                # Dictionary mapping each facility to list of ASNs
-
-# Counters for debug
+uk_facilitys = {}
+uk_asns = []
+nets ={}
 net_n = 0
 facs_n = 0
-
-# Iterate over every NetworkFacility entry
+# try:
 for n in netfac:
-    if n['country'] == 'GB':  # Only process UK facilities
+    
+    if n['country'] == 'GB':
         net_n += 1
+        
         fac = n['fac_id']
         asn = n['local_asn']
         net = n['net_id']
 
-        # If this is the first time encountering this facility, fetch full data
         if fac not in uk_facilitys:
-            f = pdb.fetch(resource.Facility, fac)
             uk_facilitys[fac] = {}
             nets[fac] = []
             facs_n += 1
-
-            # Extract facility details into dictionary
-            uk_facilitys[fac]['org_id'] = f[0]['org_id']
-            uk_facilitys[fac]['name'] = f[0]['name']
-            uk_facilitys[fac]['address1'] = f[0]['address1']
-            uk_facilitys[fac]['address2'] = f[0]['address2']
-            uk_facilitys[fac]['city'] = f[0]['city']
-            uk_facilitys[fac]['country'] = f[0]['country']
-            uk_facilitys[fac]['postcode'] = f[0]['zipcode']
-            uk_facilitys[fac]['latitude'] = f[0]['latitude']
-            uk_facilitys[fac]['longitude'] = f[0]['longitude']
-            fac_list.append(fac)
-
-            # If no coordinates, use geopy to fetch approximate location
-            if uk_facilitys[fac]['latitude'] is None:
-                full_address = f"{f[0]['address1']},{f[0]['address2']},{f[0]['city']}"
-                location = geolocator.geocode(full_address)
-                if location is not None:
-                    uk_facilitys[fac]['latitude'] = location.latitude
-                    uk_facilitys[fac]['longitude'] = location.longitude
-                else:
-                    # Manually assign fallback coordinates for known problem entries
-                    manual_coords = {
-                        1548: (51.5548, -3.0382),
-                        438: (53.4617, -2.2384),
-                        1027: (51.6523, -0.0550),
-                        1684: (53.4608, -2.3238),
-                        1793: (51.2477, -0.1571),
-                        2384: (53.7924, -1.5404),
-                        3213: (52.4773, -1.8771),
-                        5441: (51.4468, -0.4542)
-                    }
-                    if fac in manual_coords:
-                        uk_facilitys[fac]['latitude'], uk_facilitys[fac]['longitude'] = manual_coords[fac]
-                    else:
-                        print(f"Missing coordinates for facility {fac}: {uk_facilitys[fac]}")
-                        input('wait')
-
-        # Track ASN and Network for this facility
+        
         if asn not in uk_asns:
             uk_asns.append(asn)
+
         nets[fac].append(net)
         nets[fac].append(asn)
-        uk_facilitys[fac]['networks'] = nets[fac]
+        uk_facilitys[fac] = nets[fac] 
+        # print(uk_facilitys)
+        print('number of facilities = ', len(uk_facilitys),facs_n)
+        print('number of asns/networks = ', len(uk_asns))
+with open('peeringdb_test_results/uk_facilities_to_networks.json', 'w') as outfile:
+    json.dump(uk_facilitys, outfile)
+    
+outfile.close()
+            
+'''            
+except:
+    print('an error occurred')
+    print(n)
+    input('wait')
+finally:
+    print('number of facilities = ', len(uk_facilitys))
+    print('number of asns/networks = ', len(uk_asns))
+    
+    with open('peeringdb_test_results/uk_facilities_all3.json', 'w') as outfile:
+        json.dump(uk_facilitys, outfile)
+        print(net_n)
+    outfile.close()
+'''
+'''
+facilities = pdb.fetch_all(resource.Facility)
+uk_facilities = {}
+fac_num = 0
+for fac in facilities:
+    if fac['country'] == 'GB':
+        fac_num += 1
+        print(fac_num,fac)
+        
+        
+print(fac_num)
 
-        # Debug output
-        print('Number of facilities =', len(uk_facilitys), facs_n)
-        print('List of facilities =', len(fac_list), fac_list)
-        print('Number of unique ASNs =', len(uk_asns))
 
-# Optionally write results to disk
-# with open('peeringdb_test_results/uk_facilities_and_details_to_networks_and_asns_new.json', 'w') as outfile:
-#     json.dump(uk_facilitys, outfile)
+
+networks = pdb.fetch_all(resource.Network)
+uk_facilities = {}
+nets ={}
+facilitys = {}
+for n in networks:
+    #print(n['netfac_set'])
+    facil = n['netfac_set']
+    fac_id = [] 
+    
+    print (n['id'],n)
+    for fac in facil:
+        print(fac)
+        netfac_info = pdb.fetch(resource.NetworkFacility, fac)
+        print(netfac_info[0]['country'])
+        if netfac_info[0]['country'] == 'GB':
+            fac_id = netfac_info[0]['fac_id']
+            asn = netfac_info[0]['net']['asn']
+            print(netfac_info)
+            #input('wait')
+            if fac_id not in facilitys:
+                facilitys[fac_id] = {}
+                nets[fac_id] = []
+            print(fac_id)
+            print(nets[fac_id])
+            nets[fac_id].append(n['id'])
+            nets[fac_id].append(asn)
+            facilitys[fac_id] = nets[fac_id] 
+
+
+            print(facilitys)
+
+with open('peeringdb_test_results/uk_facilities_all.json', 'w') as outfile:
+        json.dump(facilitys, outfile)
+outfile.close()
+            
+# This is where old program ended 
+
+    
+
+# nets = {349: {}, 916: {}, 1282: {}, 1466: {}, 1554: {}, 1555: {}, 1556: {}, 1557: {}, 2314: {}, 2963: {}, 3658: {}, 3719: {123}, 4246: {}, 5040: {}, 5086: {}, 5230: [6535,123,345]}
+final_nets = {}
+for x in nets:
+    
+    if nets[x] == {}:
+        print(x,'nothing')
+    else:
+
+        final_nets[x] = nets[x] 
+        print(x,nets[x])
+print(final_nets)
+
+with open('peeringdb_test_results/networks_to_uk_facilities_all.json', 'w') as outfile:
+    json.dump(final_nets, outfile)
+outfile.close()
+input('stop')
+facilities_uk = {}
+fac_list =[]
+
+facs = 0
+            
+           
+# Create a dictionary of Uk Facilities and their locations
+for f in facilities:
+    print(f)
+    if f['country'] == 'GB' or fac['country'] == 'UK':
+        print('GB)')
+        input("wait")
+        # f = pdb.fetch(resource.Facility, fac)
+        fac = f[0]['id']
+        print('Facility',facs,fac)
+        facilitys_uk[fac] = {}
+        facilitys_uk[fac]['org_id'] = f['org_id']
+        facilitys_uk[fac]['name'] = f['name']
+        facilitys_uk[fac]['address1'] = f['address1']
+        facilitys_uk[fac]['address2'] = f['address2']
+        facilitys_uk[fac]['city'] = f['city']
+        facilitys_uk[fac]['country'] = f['country']
+        facilitys_uk[fac]['postcode'] = f['zipcode']
+        facilitys_uk[fac]['latitude'] = f['latitude']
+        facilitys_uk[fac]['longitude'] = f['longitude']
+        
+        facs += 1
+
+        # check if facility has coordinates
+
+        if facilitys_uk[fac]['latitude'] == None:
+            full_address = facilitys_uk[fac]['address1']+','+facilitys_uk[fac]['address2']+','+facilitys_uk[fac]['city']
+            location = geolocator.geocode(full_address)
+            if location != None:
+                facilitys_uk[fac]['latitude'] = location.latitude
+                facilitys_uk[fac]['longitude'] = location.longitude
+                print(location,location.latitude, location.longitude)
+                
+            
+            else:
+                #list of facilities that didnt manage to get location from Nominatum
+                if fac == 1548:
+                    facilitys_uk[fac]['latitude'] = 51.5548
+                    facilitys_uk[fac]['longitude'] = -3.0382 
+                # if facility isnt in list then need to do some manual location finding and
+                # add it to the list above
+                else: 
+                    print ('OOps no coordinates')
+                    print(facilitys_uk[fac])
+                    input('wait')
+    
+
+ixs = 1
+# print(facilitys_uk)
+print('Number of facilities = ',facs)
+
+# Now we can add the IP prefixes to the IX records to make life simpler
+ixlans = []
+for ixp in ixps_uk:
+
+    # ixlans.append(ixp)
+    for prefix in ipprefixes:
+        print(prefix)
+        print(ixp)
+        print (prefix['ixlan_id'], prefix)
+        
+        if prefix['ixlan_id'] == int(ixp):
+            if prefix['protocol'] == 'IPv4':
+                ixps_uk[ixp]['ipv4_prefix'] = prefix['prefix']
+            elif prefix['protocol'] == 'IPv6':
+                ixps_uk[ixp]['ipv6_prefix'] = prefix['prefix']
+            
+
+    with open('peeringdb_test_results/uk_facilities_all.json', 'w') as outfile:
+        json.dump(facilitys_uk, outfile)
+    outfile.close()
+'''
