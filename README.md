@@ -16,3 +16,5 @@ his script reads UK facilities, extracts location and metadata, and creates an i
 # Create_html reads in the file created in step2 and creates a html page showing
 # the geolocations of the probes
 # 3. run create_html.py
+
+PLEASE NOTE : Extremely large data files used with these scripts are stored at https://icloud9.co.uk/phd/thesis
