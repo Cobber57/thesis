@@ -18,3 +18,6 @@ his script reads UK facilities, extracts location and metadata, and creates an i
 # 3. run create_html.py
 
 PLEASE NOTE : Extremely large data files used with these scripts are stored at https://icloud9.co.uk/phd/thesis
+peeringdb.sqllite3
+IPN_GB_2021.csv
+
