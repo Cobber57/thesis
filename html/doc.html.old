@@ -13837,7 +13837,7 @@ changed:     20190821</pre>
 window.addEventListener('DOMContentLoaded', function() {
     var errorHandler = new StackdriverErrorReporter();
     errorHandler.start({
-        key: 'AIzaSyDzZT9h5-iR2btboRMk1ZcA2vSizIOns4s',
+        key: '', <! ENTER YOUR GOOGLE API CODE HERE>
         projectId: 'ipinfo-158115',
         service: 'ipinfo-frontend',
         version: '1.0.0',
