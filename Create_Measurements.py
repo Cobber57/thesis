@@ -1,4 +1,4 @@
-OU OWN KEY# -------------------------------------------
+# -------------------------------------------
 # SCRIPT PURPOSE:
 # -------------------------------------------
 # This script automates the creation of traceroute measurements between all active 
