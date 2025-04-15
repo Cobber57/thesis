@@ -6,6 +6,8 @@ OU OWN KEY# -------------------------------------------
 # showing how packets travel within the UK Internet infrastructure. The measurements 
 # are stored for later use in mapping tools that support fine-grained Internet 
 # topology analysis (as explored in Chapters 4 and 5 of the thesis).
+# Creates the measurements between ALLcat anchors in the UK and adds the measurment info to a file in the measurments folder
+# for use in a script to read that info and make use of it.
 # -------------------------------------------
 
 from ripe.atlas.cousteau import ProbeRequest, Traceroute, AtlasSource, AtlasRequest, AtlasCreateRequest
