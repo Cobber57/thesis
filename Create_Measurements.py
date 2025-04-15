@@ -1,4 +1,4 @@
-# -------------------------------------------
+OU OWN KEY# -------------------------------------------
 # SCRIPT PURPOSE:
 # -------------------------------------------
 # This script automates the creation of traceroute measurements between all active 
@@ -18,7 +18,7 @@ import csv
 # -------------------------------------------
 # RIPE Atlas API Key (private key to authenticate requests)
 # -------------------------------------------
-ATLAS_API_KEY = "6f0e691d-056c-497d-9f5b-2297e970ec60"
+ATLAS_API_KEY = "Get-Your_OWN-KEY"
 
 # -------------------------------------------
 # Output and input files
